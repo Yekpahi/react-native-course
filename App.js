@@ -3,7 +3,7 @@
 /* eslint-disable prettier/prettier */
 
 import React, {useState} from 'react';
-import {StyleSheet, View, Text, Button, TextInput, Alert} from 'react-native';
+import {StyleSheet, View, Text, Button, TextInput, Alert, ToastAndroid } from 'react-native';
 
 const App = () => {
   const [name, SetName] = useState('');
@@ -12,26 +12,12 @@ const App = () => {
     if (name.length> 3) {
       SetSubmitted(!submitted);
     } else {
-      Alert.alert (
-        'warnin',
-        'The name must be longer than 3 characters', [
-           {
-          text: 'Do not show again',
-           onPress: () => Alert.alert('Do not show Pressed!') 
-        },
-        {
-          text: 'Cancel',
-           onPress: () => Alert.alert('Cancel pressed!')
-        },
-        {
-           text: 'OK',
-          onPress: () => Alert.alert('ok pressed!')
-        },
-        ],
-        {
-      cancelable: true,
-     
-    }
+        ToastAndroid.showWithGravity(
+        'The name must be longer than 3 characters',
+        ToastAndroid.LONG,
+        ToastAndroid.TOP,
+        100,
+        200
       )
     }
     
