@@ -3,20 +3,41 @@
 /* eslint-disable prettier/prettier */
 
 import React, {useState} from 'react';
-import {StyleSheet, View, Text, Button, TextInput, Pressable} from 'react-native';
+import {StyleSheet, View, Text, Button, TextInput, Alert} from 'react-native';
 
 const App = () => {
   const [name, SetName] = useState('');
-  const [name2, SetName2] = useState('');
   const [submitted, SetSubmitted] = useState(false);
-  const [submitted2, SetSubmitted2] = useState(false);
   const onpr = () => {
-    SetSubmitted(!submitted);
+    if (name.length> 3) {
+      SetSubmitted(!submitted);
+    } else {
+      Alert.alert (
+        'warnin',
+        'The name must be longer than 3 characters', [
+           {
+          text: 'Do not show again',
+           onPress: () => Alert.alert('Do not show Pressed!') 
+        },
+        {
+          text: 'Cancel',
+           onPress: () => Alert.alert('Cancel pressed!')
+        },
+        {
+           text: 'OK',
+          onPress: () => Alert.alert('ok pressed!')
+        },
+        ],
+        {
+      cancelable: true,
+     
+    }
+      )
+    }
+    
   };
 
-  const onpro = () => {
-    SetSubmitted2(!submitted2);
-  };
+
   return (
     <View style={styles.body}>
       {submitted ? (
@@ -31,32 +52,6 @@ const App = () => {
       <View style={styles.button}>
         <Button title={submitted ? 'Clear' : 'Submit'} onPress={onpr} />
       </View>
-
-
-      <TextInput
-        style={styles.input}
-        placeholder="e.g. John"
-        onChangeText={value => SetName2(value)}
-      />
-      <Pressable
-          onPress={onpro}
-          hitSlop={{ top: 10, bottom: 10, right: 30, left: 10 }}
-          android_ripple={{color:'#00f'}}
-          style={({ pressed }) => [
-            { backgroundColor: pressed ? '#dddddd' : '#00ff00' },
-            styles.button,
-          ]}>
-              <Text style={styles.text}>
-          {submitted2 ? 'Clear' : 'Submit'}
-        </Text>
-          </Pressable>
-          {submitted2 ?
-        <Text style={styles.text}>
-          You are registered as {name2}
-        </Text>
-        :
-        null
-      }
     </View>
   );
 };
